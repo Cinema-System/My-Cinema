@@ -105,7 +105,7 @@ CREATE TABLE MEMBER(
     MEMBIRTH DATE,          -- 주민등록번호
     VERIFICATION BOOLEAN,   -- 본인인증
     DOPOINT BOOLEAN,        -- 포인트체크 (유)
-    POINT NUMBER,           -- 포인트
+    POINT NUMBER,           -- 포인트 점수
     PRIMARY KEY(MEMID)
 );
 
@@ -127,10 +127,11 @@ CREATE TABLE HOWTOPAY(
 CREATE TABLE PAY_INFO(
     PAYNO NUMBER,       -- 식별번호
     PRICE NUMBER,       -- 결제금액
-    POINTWAY BOOLEAN,   -- 결제시각
-    POINTDATE DATE,     -- 활용방식
-    SCORE NUMBER,       -- 활용시각
-    PRIMARY KEY(PAYNO), -- 포인트점수
+    PAYDATE DATE,       -- 결제시각
+    POINTWAY BOOLEAN,   -- 활용방식
+    POINTDATE DATE,     -- 활용시각
+    SCORE NUMBER,       -- 활용점수
+    PRIMARY KEY(PAYNO), 
     FOREIGN KEY(TICKETNO) REFERENCES TICKET(TICKETNO),      -- 티켓_일련번호
     FOREIGN KEY(PAYWAYNO) REFERENCES HOWTOPAY(PAYWAYNO),    -- 결제방법_식별번호
     FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID)             -- 회원_아이디
@@ -147,15 +148,3 @@ CREATE TABLE PAYER(
     FOREIGN KEY(NONMEMNO) REFERENCES NONMEMBER(NONMEMNO),   -- 비회원_식별번호
     FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID)             -- 회원_아이디
 );
-
-/*
-    # 추가 고려사항
-
-    1. 좌석수 업데이트 / 결제 후에.. 줄어들드록...
-
-    2. 선호도에 따른 영화 홍보 테이블
-
-    3. 결제자정보 - 기본키 재수정
-
-    4. 회원 - 포인트 점수
-*/
