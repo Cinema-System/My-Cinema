@@ -40,6 +40,8 @@ CREATE TABLE MOVIE(
     MVRUNTIME NUMBER,       -- 상영시간
     MVGENRE VARCHAR2,       -- 장르
     MVSTORY VARCHAR2,       -- 줄거리
+    MVPREVIEW VARCHAR2,     -- 예고편
+    MVPOST VARCHAR2,        -- 포스터
     MVBOOKRANK NUMBER,      -- 예매순위 
     MVBOOKINGRATE NUMBER,   -- 예매율
     PRIMARY KEY(MVNO)
@@ -64,11 +66,20 @@ CREATE TABLE THEATER (
     FOREIGN KEY(MVNO) REFERENCES MOVIE(MVNO)                -- 영화_식별번호
 );
 
+-- 상영일정
+CREATE TABLE SCHEDULE (
+    SCHNO NUMBER,   -- 식별번호
+    SCHDAY DATE,    -- 상영날짜
+    SCHTIME DATE,   -- 상영시각
+    PRIMARY KEY(SCHNO),
+    FOREIGN KEY(THEATERNO) REFERENCES THEATER(THEATERNO)  -- 상영관_식별번호
+);
+
 -- 좌석
 CREATE TABLE SEAT (
     SEATNO NUMBER,    -- 좌석번호
     PRIMARY KEY(SEATNO),
-    FOREIGN KEY(THEATERNO) REFERENCES THEATER(THEATERNO)  -- 영화_식별번호
+    FOREIGN KEY(SCHNO) REFERENCES SCHEDULE(SCHNO)   -- 상영관_식별번호
 );
 
 -- 관객종류
@@ -89,35 +100,39 @@ CREATE TABLE TICKET (
 CREATE TABLE BOOKING_INFO (
     GOERSCNT NUMBER,    -- 관객수
     BOOKINGDATE DATE,   -- 예매시각
-    FOREIGN KEY(SEATNO) REFERENCES SEAT(SEATNO),        -- 좌석_식별번호
+    FOREIGN KEY(SEATNO) REFERENCES SEAT(SEATNO),        -- 좌석_좌석번호
     PRIMARY KEY(SEATNO),  
     FOREIGN KEY(GOERSNO) REFERENCES MOVIEGOERS(GOERSNO),-- 관객종류_식별번호
+    PRIMARY KEY(GOERSNO),
     FOREIGN KEY(TICKETNO) REFERENCES TICKET(TICKETNO)   -- 티켓_일련번호
 );
 -- 사용자
+CREATE TABLE USER(
+    USERID VARCHAR2,        -- 식별아이디
+    MEMBERCHECK BOOLEAN,    -- 회원체크
+    PRIMARY KEY(USERID)
+);
 
 -- 비회원
 CREATE TABLE NONMEMBER(
-    NONMEMNO NUMBER,        -- 식별번호
     NONMEMNAME VARCHAR2,    -- 이름
     NONMEMPHONE NUMBER,     -- 전화번호
     NONMEMBIRTH DATE,       -- 주민등록번호
     VERIFICATION BOOLEAN,   -- 본인인증
-    DOPOINT BOOLEAN,        -- 포인트체크 (무)
+    FOREIGN KEY(NONMEMID) REFERENCES USER(USERID),  -- 임시아이디
     PRIMARY KEY(NONMEMNO)
 );
 
 -- 회원
 CREATE TABLE MEMBER(
-    MEMID VARCHAR2,         -- 아이디
     MEMPWD VARCHAR2,        -- 비밀번호 
     MEMNAME VARCHAR2,       -- 이름
     MEMEMAIL VARCHAR2,      -- 이메일
     MEMPHONE NUMBER,        -- 전화번호
     MEMBIRTH DATE,          -- 주민등록번호
     VERIFICATION BOOLEAN,   -- 본인인증
-    DOPOINT BOOLEAN,        -- 포인트체크 (유)
     POINT NUMBER,           -- 포인트 점수
+    FOREIGN KEY(MEMID) REFERENCES USER(USERID), -- 아이디
     PRIMARY KEY(MEMID)
 );
 
@@ -141,27 +156,34 @@ CREATE TABLE PAY_INFO(
     PAYNO NUMBER,       -- 식별번호
     PRICE NUMBER,       -- 결제금액
     PAYDATE DATE,       -- 결제시각
-    POINTWAY BOOLEAN,   -- 활용방식
-    POINTDATE DATE,     -- 활용시각
-    SCORE NUMBER,       -- 활용점수
     PRIMARY KEY(PAYNO), 
     FOREIGN KEY(TICKETNO) REFERENCES TICKET(TICKETNO),      -- 티켓_일련번호
-    FOREIGN KEY(PAYWAYNO) REFERENCES HOWTOPAY(PAYWAYNO),    -- 결제방법_식별번호
-    FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID)             -- 회원_아이디
+    FOREIGN KEY(PAYWAYNO) REFERENCES HOWTOPAY(PAYWAYNO)     -- 결제방법_식별번호
 );
 
 -- 결제자정보
 CREATE TABLE PAYER(
     DOCLASS BOOLEAN,    -- 시청가능
-    DOPOINT BOOLEAN,    -- 포인트체크
-    FOREIGN KEY(PAYNO) REFERENCES PAY(PAYNO),   -- 결제정보_식별번호
+    FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID)             -- 사용자_식별아이디
     PRIMARY KEY(PAYNO),
-    FOREIGN KEY(MVNO) REFERENCES MOVIE(MVNO),   -- 영화_식별번호
-    PRIMARY KEY(MVNO),
-    FOREIGN KEY(NONMEMNO) REFERENCES NONMEMBER(NONMEMNO),   -- 비회원_식별번호
-    FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID)             -- 회원_아이디
+    FOREIGN KEY(PAYWAYNO) REFERENCES HOWTOPAY(PAYWAYNO),    -- 결제방법_식별번호
+    FOREIGN KEY(MVNO) REFERENCES MOVIE(MVNO)                -- 영화_식별번호
 );
 
 -- 활용방식
 /* 적립 소모 */
+CREATE TABLE HOWTOPOINT(
+    POINTNO NUMBER,     -- 식별번호
+    POINTWAY VARCHAR2,  -- 활용방식
+    PRIMARY KEY(PAYWAYNO)
+);
+
 -- 포인트정보
+CREATE TABLE POINT_INFO(
+    POINTDATE DATE,     -- 활용시각
+    SCORE NUMBER,       -- 활용점수
+    FOREIGN KEY(POINTNO) REFERENCES HOWTOPOINT(POINTNO),    -- 활용방식_식별번호
+    PRIMARY KEY(POINTNO),
+    FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID),            -- 회원_아이디
+    FOREIGN KEY(PAYNO) REFERENCES PAY_INFO(PAYNO)           -- 결제정보_식별번호
+);    
