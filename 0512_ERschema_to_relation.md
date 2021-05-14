@@ -10,23 +10,23 @@
 
 ***
 ## ER 스키마
-![ER 스키마](./0512_ER_model(schema).png)
+![ER 스키마](./img/0512_ER_model(schema).png)
 ***
 ## 1 단계 : 정규 엔티티 타입
-![step01](./0512_step01.png)
+![step01](./img/0512_step01.png)
 ***
 ## 2 단계 : 약한 엔티티 타입
 ***
 ## 3 단계 : 2진 1:1 관계 타입
-![step03](./0512_step03.png)
+![step03](./img/0512_step03.png)
 ***
 ## 4 단계 : 정규 2진 1:N 관계 타입
-![step04](./0512_step04.png)
+![step04](./img/0512_step04.png)
 ***
 ## 5 단계 : 2진 M:N 관계 타입
 ***
 ## 6 단계 : 3진 관계 타입
-![step06](./0512_step06.png)
+![step06](./img/0512_step06.png)
 ***
 ## 7 단계 : 다치 애트리뷰트
-![step07](./0512_step07.png)
+![step07](./img/0512_step07.png)
