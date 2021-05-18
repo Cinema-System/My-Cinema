@@ -1,15 +1,18 @@
+//필요한 모듈 선언
 var createError = require('http-errors');
+var http = require('http');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var app = express();
+
+//라우팅 모듈 선언
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
-
-// view engine setup
+// view engine setup, express 서버 포트 설정
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -19,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//request 요청 URL과 처리 로직을 선언한 라우팅 모듈 매핑
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
