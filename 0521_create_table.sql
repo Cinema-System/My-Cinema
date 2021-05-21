@@ -34,14 +34,14 @@ CREATE TABLE CINEMA (
 CREATE TABLE SCREENWAY(
     SCRWAYNO CHAR(8),    -- 식별번호
     SCRWAY VARCHAR2(8),     -- 상영방식
-    SCRPRICE NUMBER(4),      -- 상영금액
+    SCRWAYPRICE NUMBER(4),      -- 상영금액
     PRIMARY KEY(SCRWAYNO)
 );
 
 -- 영화
 CREATE TABLE MOVIE(
     MVNO CHAR(7),               -- 식별문자           
-    MVNAME VARCHAR2(40),        -- 이름
+    MVNAME VARCHAR2(40),        -- 제목
     MVRELEASEDATE DATE,         -- 개봉일
     MVDIRECTOR VARCHAR2(20),    -- 감독
     MVCLASS NUMBER(2),          -- 시청등급
