@@ -1,8 +1,8 @@
 -- 지역
 /* 정문통학마을, 학식러버마을, 후문자취마을, 하늘연못마을, 쪽운동장마을 */
 CREATE TABLE LOCAL (
-    LOCALNO NUMBER,         -- 식별번호
-    LOCALNAME VARCHAR2,     -- 이름
+    LOCALNO CHAR(7),         -- 식별문자
+    LOCALNAME VARCHAR2(10),     -- 이름
     PRIMARY KEY(LOCALNO)
 );
 
@@ -16,10 +16,10 @@ CREATE TABLE LOCAL (
 
 */
 CREATE TABLE CINEMA (
-    CINEMANO NUMBER,        -- 식별번호
-    CINEMANAME VARCHAR2,    -- 이름
+    CINEMANO CHAR(7),        -- 식별문자
+    CINEMANAME VARCHAR2(10),    -- 이름
     PRIMARY KEY(CINEMANO),
-    FOREIGN KEY(LOCALNO) REFERENCES LOCAL(LOCALNO)  -- 지역_식별번호
+    FOREIGN KEY(LOCALNO) REFERENCES LOCAL(LOCALNO) -- 지역_식별번호
 );
 
 -- 상영방식
