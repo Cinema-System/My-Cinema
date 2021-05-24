@@ -14,7 +14,6 @@ CREATE TABLE LOCAL (
     하늘연못마을 : 정보기술관(정기관), 인문학관, 음악관
     쪽운동장마을 : 과학기술관(과기관), 미래관, 100주년기념관(100기관)
 */
-
 CREATE TABLE CINEMA (
     CINEMANO CHAR(7),           -- 식별문자
     CINEMANAME VARCHAR2(10),    -- 이름
@@ -125,7 +124,7 @@ CREATE TABLE BOOKING_INFO (
     BOOKINGDATE TIMESTAMP,   -- 예매시각
 );
 
---자리정보
+-- 예매좌석정보
 CREATE TABLE BOOKSEAT(  
     BOOKSEATNO CHAR(10);                                                            --자리정보_식별문자
     FOREIGN KEY(BOOKINGNO) REFERENCES BOOKING_INFO(BOOKINGNO) ON DELETE NO ACTION,  -- 예매정보_식별문자
@@ -165,6 +164,13 @@ CREATE TABLE MEMBER(
     PRIMARY KEY(MEMID)
 );
 
+-- 선호장르정보
+CREATE TABLE FAVORGENRE_INFO(
+    FAVORGENRE VARCHAR2(10),    -- 선호장르
+    FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID) ON DELETE CASCADE,    -- 회원_아이디
+    PRIMARY KEY(MEMID)
+);
+
 --본인인증
 CREATE TABLE VERIFICATION(
     VERNAME VARCHAR2(10),       -- 이름
@@ -181,13 +187,6 @@ CREATE TABLE MANAGER(
     MNGNAME VARCHAR2(10),       -- 이름
     FOREIGN KEY(MNGID) REFERENCES USER(USERID) ON DELETE CASCADE, -- 아이디
     PRIMARY KEY(MNGID)
-);
-
--- 선호장르정보
-CREATE TABLE FAVORGENRE_INFO(
-    FAVORGENRE VARCHAR2(10),    -- 선호장르
-    FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID) ON DELETE CASCADE,    -- 회원_아이디
-    PRIMARY KEY(MEMID)
 );
 
 -- 결제방법
