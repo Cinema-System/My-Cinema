@@ -1,16 +1,20 @@
 //필요한 모듈 선언
 var createError = require('http-errors');
-var http = require('http');
+// var http = require('http');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// var oracledb = require('oracledb');
+// var dbConfig = require('./conf/dbconfig');
 
+// express 객체 생성
 var app = express();
 
 //라우팅 모듈 선언
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var dbRouter = require('./routes/db');
 
 // view engine setup, express 서버 포트 설정
 app.set('views', path.join(__dirname, 'views'));
@@ -22,9 +26,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//request 요청 URL과 처리 로직을 선언한 라우팅 모듈 매핑
+// request 요청 URL과 처리 로직을 선언한 router 모듈 매핑
+// router 객체를 app 객체에 등록
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/db', dbRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
