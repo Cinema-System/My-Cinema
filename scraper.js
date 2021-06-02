@@ -13,18 +13,26 @@ async function getHTML() {
 getHTML().then((html) => {
   const $ = cheerio.load(html.data);
   var title = $(".tit").text(); // 영화 제목
-  // var mv_info = $(".info_txt1").text(); // 장르, 러닝타임, 개봉일, 감독, 배우 순으로 나옴
-  title = title.replace(/(\r\n\t|\n|\r\t|\t)/gm, "_");
-  title = title.split(/_/g);
-  title = title.filter(arrayspliting);
-  title = title.division(2);
-  console.log(title);
+  var mv_info = $(".info_txt1").text(); // 장르, 러닝타임, 개봉일, 감독, 배우 순으로 나옴
+  title = dataAlign(title);
+  mv_info = dataAlign(mv_info);
+  title = title.titledivision(2);
+  mv_info = mv_info.mvdivision();
+  console.log(mv_info);
 });
 
-function arrayspliting(item) {
-  return item !== null && item !== undefined && item !== "";
+function dataAlign(item) {
+  item = item.replace(/(\,|\r\n\t|\n|\r\t|\t|\|)/gm, "_");
+  item = item.split(/_/g);
+  item = item.filter(arrayspliting);
+  return item;
 }
-Array.prototype.division = function (n) {
+
+function arrayspliting(item) {
+  return item !== null && item !== undefined && item !== "" && item !== " ";
+}
+
+Array.prototype.titledivision = function (n) {
   var arr = this;
   var len = arr.length;
   var cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
@@ -36,6 +44,20 @@ Array.prototype.division = function (n) {
       tmp.push(arr.splice(0, 1));
     }
   }
+  return tmp;
+};
 
+Array.prototype.mvdivision = function () {
+  var arr = this;
+  var tmp = [];
+  var idx = 0;
+  var cnt = arr.filter((element) => "개요" === element).length;
+  for (var i = 0; i < cnt; i++) {
+    idx = arr.indexOf("개요", 1);
+    tmp.push(arr.splice(0, idx));
+    if (idx == -1) {
+      tmp.push(arr.splice(1, arr.length));
+    }
+  }
   return tmp;
 };
