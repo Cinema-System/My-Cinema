@@ -14,8 +14,7 @@ getHTML().then((html) => {
   const $ = cheerio.load(html.data);
   var title = $(".tit").text(); // 영화 제목
   // var mv_info = $(".info_txt1").text(); // 장르, 러닝타임, 개봉일, 감독, 배우 순으로 나옴
-  title = title.replace(/(\r\n\t|\n|\r\t)/gm, "_");
-  title = title.replace(/(\s*)/g, "");
+  title = title.replace(/(\r\n\t|\n|\r\t|\t)/gm, "_");
   title = title.split(/_/g);
   title = title.filter(arrayspliting);
   title = title.division(2);
@@ -31,7 +30,12 @@ Array.prototype.division = function (n) {
   var cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
   var tmp = [];
   for (var i = 0; i < cnt; i++) {
-    tmp.push(arr.splice(0, n));
+    if (arr.slice(0, 1)[0].includes("관람")) {
+      tmp.push(arr.splice(0, n));
+    } else {
+      tmp.push(arr.splice(0, 1));
+    }
   }
+
   return tmp;
 };
