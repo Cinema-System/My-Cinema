@@ -1,6 +1,6 @@
 var express = require('express');
 var oracledb = require('oracledb');
-var dbConfig = require('./conf/dbconfig');
+var dbConfig = require('../conf/dbconfig');
 var router = express.Router();
 
 // Oracle Auto Commit 설정
