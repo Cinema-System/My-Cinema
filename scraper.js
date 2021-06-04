@@ -33,4 +33,3 @@ function arrayspliting(item) {
 }
 
   console.log(title + mv_info);
-});
