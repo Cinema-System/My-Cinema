@@ -142,61 +142,9 @@ INSERT INTO MOVIEGOERS VALUES(GOERS02, "청소년", 0.8);
 INSERT INTO MOVIEGOERS VALUES(GOERS02, "경로", 0.6);
 INSERT INTO MOVIEGOERS VALUES(GOERS02, "우대", 0.4);
 
-/*  
-
-* 고객
-
-DEJH에 회원가입한다.
-    - 고객 정보를 입력한다.(본인인증 포함)
-    - 회원 정보를 수정한다.
-    - 회원탈퇴한다.
-    - 회원정보를 조회한다.
-        - 회원정보를 조회한다.
-        - 포인트 정보를 조회한다.
-
-DEJH에 로그인한다.
-    - 회원으로 로그인한다.
-    - 비회원으로 로그인한다.
-
-등록된 영화를 조회한다.
-    - 영화를 영화이름으로 검색하여 조회한다. (영화정보)
-    - 영화를 선호장르별 조회한다. (메인페이지)
-    - 영화를 예매순위로 조회한다.
-    - 영화를 장르별로 조회한다.
-
-티켓을 예매한다.(= 만든다)
-    <!--
-        지역별 예매 방식 : 지역 ㅡ> 영화관 ㅡ> 상영관 + 상영일정 ㅡ> 영화
-        영화별 예매 방식: 영화 ㅡ> 지역 ㅡ> 영화관 ㅡ> 상영관 + 상영일정
-    -->
-    - 회원이 예매한다.
-        - 예매자의 시청 가능 여부를 확인한다.
-        - 영화를 예매한다.
-    - 비회원이 예매한다.
-        - 예매자의 시청 가능 여부를 확인한다.
-        - 영화를 예매한다.
-    - 예매를 취소한다. 
- 
-티켓을 결제한다.
-    - 결제 방식을 선택한다.
-        - 신용카드로 결제한다.
-        - 무통장입금으로 결제한다.
-        - 인터넷결제로 결제한다.
-    - 포인트를 활용한다.
-        - 포인트를 적립한다.
-        - 포인트를 소모한다.
-    - 결제를 완료한다.(예매율 정보 UPDATE)
-   
-티켓정보를 조회한다.
-    - 결제 완료된 예매정보를 확인한다.
-    - 결제 완료된 예매정보를 취소한다. (예매율 정보 UPDATE)
-    - 영수증 정보를 조회한다.
 
 
-
-*/
-
--- # 관리자
+-- # 관리자 #
 
 -- # DEJH에 지역을 등록한다.
 -- 지역을 등록한다.
@@ -238,6 +186,12 @@ INSERT INTO MOVIE VALUES("MVNO", "MVNAME", "MVRELEASEDATE", "MVDIRECTOR", "MVCLA
 -- 영화를 제거한다.(상영일정에 등록되어 있지 않은지 조회)
 DELETE FROM MOVIE WHERE MVNO = "MVNO";
 
+DELETE FROM MOVIESCHEDULE_INFO WHERE MVNO = "MVNO";
+
+UPDATE MOVIE_INFO SET MVBOOKRANK = 0 WHERE MVNO = "MVNO";
+
+DELETE FROM ACTOR_INFO WHERE MVNO = "MVNO";
+
 -- # 상영일정을 등록한다.
 -- 영화 상영 일정을 등록한다.
 INSERT INTO SCHEDULE VALUES("SCHNO", "SCHTIME", "THEATERNO", "MVNO");
@@ -263,6 +217,7 @@ FROM MEMBER_INFO, POINTLIST_INFO
 WHERE MEMBER_INFO.MEMID = POINTLIST_INFO.MEMID;
 -- 고객정보를 삭제한다.
 DELETE FROM USER WHERE USERID = "USERID";
+
 DELETE FROM MEMBER_INFO WHERE MEMID = "USERID";
 
 -- # 관리자로 로그인한다.
@@ -273,71 +228,133 @@ WHERE USER.USERCODE = 2;
 
 
 
+-- # 고객 #
 
-* 고객
+-- # DEJH에 회원가입한다.
+-- 고객 정보를 입력한다.
+INSERT INTO USER VALUES("USERID",1);
+INSERT INTO MEMBER_INFO VALUES("USERID", "MEMPWD", "MEMNAME", "MEMEMAIL", "MEMPHONE", "MEMBIRTH", 0, NULL);
+-- 본인인증 및 회원가입완료한다.
+UPDATE MEMBER_INFO
+SET ISVERIFICATION = 1, TOTALPONUNINT = 0
+WHERE COUNT(
+    SELECT VERIFICATION.VERNAME
+    FROM VERIFICATION AS VER, MANAGER_INFO AS MEM
+    WHERE VER.VERNAME = MEM.MEMNAME AND VER.VERPHONE = MEM.MEMPHONE AND VER.VERBIRTH = MEM.MEMBIRTH
+) != 0;
+-- 회원 정보를 수정한다.
+UPDATE MEMBER_INFO 
+SET MEMPWD = "MEMPWD", MEMNAME = "MEMNAME", MEMEMAIL = "MEMEMAIL"
+WHERE MEMID = "USERID";
+-- 회원탈퇴한다.
+DELETE FROM USER WHERE USERID = "USERID";
+DELETE FROM MEMBER_INFO WHERE MEMID = "USERID";
+-- 회원정보를 조회한다.
+-- -- 회원정보를 조회한다.
+SELECT *
+FROM MEMBER_INFO
+WHERE MEMID = "USERID";
+-- -- 포인트 정보를 조회한다.
+SELECT *
+FROM POINTLIST_INFO
+WHERE MEMID = "USERID";
 
-DEJH에 회원가입한다.
-    - 고객 정보를 입력한다.(본인인증 포함)
-    - 회원 정보를 수정한다.
-    - 회원탈퇴한다.
-    - 회원정보를 조회한다.
-        - 회원정보를 조회한다.
-        - 포인트 정보를 조회한다.
+-- # DEJH에 로그인한다.
+-- 회원으로 로그인한다.
+SELECT MEMBER_INFO.MEMID, MEMBER_INFO.MEMPWD 
+FROM USER, MEMBER_INFO
+WHERE USER.USERCODE = 1;
+-- 비회원으로 로그인한다.
+SELECT NONMEMBER_INFO.NONMEMID, NONMEMBER_INFO.NONMEMPWD 
+FROM USER, NONMEMBER_INFO
+WHERE USER.USERCODE = 0;
 
-DEJH에 로그인한다.
-    - 회원으로 로그인한다.
-    - 비회원으로 로그인한다.
+-- # 등록된 영화를 조회한다.
+-- 영화를 영화이름으로 검색하여 조회한다. (영화정보)
+SELECT * 
+FROM MOVIE 
+WHERE MVNAME = "MVNAME";
+-- 영화를 선호장르별 조회한다. (메인페이지)
+SELECT MOVIE.* 
+FROM MOVIE, FAVORGENRE_INFO
+WHERE FAVORGENRE_INFO.MEMID = "USERID" AND FAVORGENRE_INFO.FAVORGENRE = MOVIE.MVGENRE;
+-- 영화를 예매순위로 조회한다.
+SELECT * 
+FROM MOVIE
+WHERE MVNO = 
+    (SELECT MVNO
+    FROM MOVIE_INFO
+    WHERE MVBOOKRANK BETWEEN 1 AND 5
+    ORDER BY MVBOOKRANK);    
 
+-- 영화를 장르별로 조회한다.
+SELECT * 
+FROM MOVIE 
+WHERE MVGENRE = "MVGENRE";
 
+/*
+지역별 예매 방식 : 지역 ㅡ> 영화관 ㅡ> 상영관 + 상영일정 ㅡ> 영화
+영화별 예매 방식: 영화 ㅡ> 지역 ㅡ> 영화관 ㅡ> 상영관 + 상영일정
+*/
+-- # 티켓을 예매한다.(= 만든다)
+-- 회원이 예매한다.
+-- -- 예매자의 시청 가능 여부를 확인한다.
+--(예매한적 없는 회원인 경우)
+INSERT INTO BOOKER_INFO VALUES("USERID", NULL, "MVNO", NULL);
 
+UPDATE BOOKER_INFO
+SET ISCLASS = 0
+WHERE 
+    (SELECT MV.MVCLASS
+    FROM BOOKER_INFO AS BO, MVNO AS MV
+    WHERE "USERID" = BO.USERID AND BO.MVNO = MV.MVNO)
+    >
+    2022 - (SELECT ME.MEMBIRTH
+    FROM BOOKER_INFO AS BO, MEMBER_INFO AV ME
+    WHERE "USERID" = BO.USERID AND BO.USERID = ME.USERID);
 
-     
---고객 정보를 입력한다.(본인인증 포함)
-INSERT INTO USER VALUES(DEJH, TRUE)
-INSERT INTO MEMBER VALUES( ... )
+UPDATE BOOKER_INFO
+SET ISCLASS = 1
+WHERE 
+    (SELECT MV.MVCLASS
+    FROM BOOKER_INFO AS BO, MVNO AS MV
+    WHERE "USERID" = BO.USERID AND BO.MVNO = MV.MVNO)
+    <=
+    2022 - (SELECT ME.MEMBIRTH
+    FROM BOOKER_INFO AS BO, MEMBER_INFO AV ME
+    WHERE "USERID" = BO.USERID AND BO.USERID = ME.USERID);
 
---회원 정보를 수정한다.
-UPDATE MEMBER SET MEMPHONE=01012345678;
+SELECT ISCLASS
+FROM BOOKER_INFO
+WHERE USERID = "USERID";
+--(예매한적 있는 회원인 경우)
+SELECT ISCLASS
+FROM BOOKER_INFO
+WHERE USERID = "USERID";
 
---회원탈퇴한다.
-DELETE FROM USER WHERE USERID=bubble3jh
-DELETE FROM MEMBER WHERE USERID=bubble3jh
+INSERT INTO BOOKER_INFO VALUES("USERID", "ISCLASS", "MVNO", NULL);
+-- -- 영화를 예매한다.
+INSERT INTO BOOKSEAT_INFO VALUES("BOOKINGNO", "SEATNO", "GOERSNO");
+INSERT INTO BOOKING VALUES("BOOKINGNO", "GOERSCNT", GETDATE());
 
---고객이 키워드를 가지고 영화를 검색한다.
-SELECT MVNAME FROM MOVIE WHERE MVDIRECTOR='봉준호';
-
---영화관을 선택해 상영중인 영화를 검색한다. (!)
-SELECT MVNAME FROM MOVIE WHERE EXISTS (SELECT 1 FROM THEATER WHERE THEATER.CINEMANO = '10' AND ONSCREEN = TRUE AND THEATER.MVNO = MOVIE.MVNO);
-
---상영중인 영화를 예매율 순으로 정렬한다. (!)
-SELECT MVNAME FROM MOVIE WHERE EXISTS (SELECT 1 FROM THEATER WHERE ONSCREEN = TRUE AND THEATER.MVNO = MOVIE.MVNO) ORDER BY MVBOOKINGRATE;
-
---결제자가 시청 가능한 영화인지 확인한다.
-SELECT MVCLASS ,CASE WHEN MVCLASS='청불' 
-
---영화관, 상영관, 좌석을 선택한다.(예매율 정보 UPDATE)
-INSERT INTO BOOKING_INFO (BOOKNO, BOOKINGDATE) VALUES(1, GETDATE())
-INSERT INTO PAY_INFO (PAYNO, PRICE) VALUES(1, 10000) -- 예매율 정보를 UPDATE 하기 위해서 MV에 타고 가야하는데 예매정보에 영화/ 상영 관련 항목이 없음..?
-
---포인트 결제자 사용자 회원 VIEW
-CREATE OR REPLACE VIEW PAYPOINT AS
-SELECT PAY_INFO.PRICE
-SELECT POINT.SCORE
-FROM PAY_INFO INNER JOIN PAY_INFO ON PAY_INFO.USERID = POINT.USERID
-WHERE PAY_INFO.USERID = POINT.USERID;
-
---포인트로 할인을 받는다. (1번 결제에서 5000원 할인)
-UPDATE PAY_INFO SET PRICE= (SELECT PRICE FROM PAY_INFO WHERE PAYNO='1')-5000
-UPDATE POINT SET SCORE= (SELECT SCORE FROM POINT WHERE USERID='bubble3jh')-5000
-
---결제 후 포인트를 적립한다. (1번 결제 최종 금액의 10% 적립)
-UPDATE POINT SET SCORE= (SELECT SCORE FROM POINT WHERE USERID='bubble3jh')+(SELECT PRICE FROM PAY_INFO WHERE PAYNO='1')*0.1
-
---결제를 완료한다.
-UPDATE PAY_INFO SET PAYDATE = GETDATE(), PAYWAY = '우리은행';
-
---예매를 취소한다. (예매율 정보 UPDATE)
-DELETE * FROM BOOKING_INFO WHERE BOOKNO = '1';
-
---결제 완료된 예매정보를 확인한다.
-SELECT * FROM BOOKING_INFO WHERE BOOKNO = '1';
+UPDATE BOOKER_INFO
+SET BOOKINGNO = "BOOKINGNO";
+-- 비회원이 예매한다.
+-- -- 예매자의 시청 가능 여부를 확인한다.
+-- -- 영화를 예매한다.
+-- 예매를 취소한다. 
+ 
+-- # 티켓을 결제한다.
+-- 결제 방식을 선택한다.
+-- -- 신용카드로 결제한다.
+-- -- 무통장입금으로 결제한다.
+-- -- 인터넷결제로 결제한다.
+-- 포인트를 활용한다.
+-- -- 포인트를 적립한다.
+-- -- 포인트를 소모한다.
+-- 결제를 완료한다.(예매율 정보 UPDATE)
+   
+-- # 티켓정보를 조회한다.
+-- 결제 완료된 예매정보를 확인한다.
+-- 결제 완료된 예매정보를 취소한다. (예매율 정보 UPDATE)
+-- 영수증 정보를 조회한다.
