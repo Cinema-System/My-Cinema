@@ -73,7 +73,8 @@ h2 {
 .form-block {
   background: #fff;
   padding: 40px;
-  max-width: 500px;
+  max-width: 1000px;
+  min-height:500px;
   -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2); }
   @media (max-width: 767.98px) {

@@ -18,7 +18,7 @@ getHTML().then((html) => {
   mv_info = dataAlign(mv_info);
   title = title.titledivision(2);
   mv_info = mv_info.mvdivision();
-  console.log(mv_info);
+  console.log(mv_info.length);
 });
 
 function dataAlign(item) {
