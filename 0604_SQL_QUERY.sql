@@ -242,26 +242,56 @@ DELETE FROM MOVIE WHERE MVNO = "MVNO";
 -- 영화 상영 일정을 등록한다.
 INSERT INTO SCHEDULE VALUES("SCHNO", "SCHTIME", "THEATERNO", "MVNO");
 -- 영화 상영 일정을 제거한다.
+DELETE FROM SCHEDULE WHERE SCHNO = "SCHNO";
 
 -- # 고객의 정보를 조회한다.
 -- 고객의 회원정보를 조회한다.
+SELECT NONMEMBER_INFO.* 
+FROM USER, NONMEMBER_INFO 
+WHERE USER.USERCODE = 0;
+
+SELECT MEMBER_INFO.* 
+FROM USER, MEMBER_INFO 
+WHERE USER.USERCODE = 1;
 -- 고객의 결제 내역을 조회한다.
+SELECT PAYLIST_INFO.* 
+FROM USER, PAYLIST_INFO
+WHERE USER.USERID = PAYLIST_INFO.USERID;
 -- 고객의 포인트 내역을 조회한다.
+SELECT POINTLIST_INFO.* 
+FROM MEMBER_INFO, POINTLIST_INFO
+WHERE MEMBER_INFO.MEMID = POINTLIST_INFO.MEMID;
 -- 고객정보를 삭제한다.
+DELETE FROM USER WHERE USERID = "USERID";
+DELETE FROM MEMBER_INFO WHERE MEMID = "USERID";
 
 -- # 관리자로 로그인한다.
 -- 로그인한다.
+SELECT MANAGER_INFO.* 
+FROM USER, MANAGER_INFO
+WHERE USER.USERCODE = 2;
 
 
 
 
+* 고객
 
---영화 상영 일정을 등록한다.
-INSERT INTO SCREEN VALUES(1, 20200514, 1830, 15)
+DEJH에 회원가입한다.
+    - 고객 정보를 입력한다.(본인인증 포함)
+    - 회원 정보를 수정한다.
+    - 회원탈퇴한다.
+    - 회원정보를 조회한다.
+        - 회원정보를 조회한다.
+        - 포인트 정보를 조회한다.
 
---영화 상영 일정을 제거한다.
-DELETE FROM SCREEN WHERE SCRNO=1;
+DEJH에 로그인한다.
+    - 회원으로 로그인한다.
+    - 비회원으로 로그인한다.
 
+
+
+
+     
 --고객 정보를 입력한다.(본인인증 포함)
 INSERT INTO USER VALUES(DEJH, TRUE)
 INSERT INTO MEMBER VALUES( ... )
