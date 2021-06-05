@@ -1,1 +1,118 @@
-<%# 관람방식 선택 %>
+<%# 영화, 영화관선택 %>
+
+    <%# 좌석선택 %>
+
+
+        <!DOCTYPE html>
+        <html>
+
+        <head>
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                crossorigin="anonymous">
+
+            <title>좌석 예매</title>
+            <!-- for-mobile-apps -->
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="keywords"
+                content="Movie Ticket Booking Widget Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+            <!-- //for-mobile-apps -->
+            <link href='//fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
+            <link
+                href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+                rel='stylesheet' type='text/css'>
+            <link href="/css/seatstyle.css" rel="stylesheet" type="text/css" media="all" />
+            <script src="/js/jquery-1.11.0.min.js"></script>
+            <script src="/js/jquery.seat-charts.js"></script>
+        </head>
+
+        <body>
+            <div class="content">
+                <h1>DEJH</h1>
+                <div class="main">
+                    <h2>관람 인원</h2>
+                    <div class=row>
+                            <div class="col-md-4" style="padding-bottom: 10px;">
+                                <img src="/images/frozen.jpg" style="width: 200px;">
+                            </div>
+                            <div class="col-md-8">
+                                <table class="table">
+                                    <tbody>
+                                        <tr >
+                                            <td style="min-width: 120px;">러닝타임</td>
+                                            <td>120분</td>
+                                        </tr>
+                                        <tr>
+                                            <td>시청등급</td>
+                                            <td>19금</td>
+                                         </tr>
+                                         <tr>
+                                             <td>장르</td>
+                                             <td>범죄, 스릴러</td>
+                                          </tr>
+                                        <tr>
+                                            <td>줄거리</td>
+                                            <td>결국 엘사의 피의 복수에 성공한 안나, 평온한 삶을 즐길무렵 이웃왕자에게서 한편의 비디오가 동봉된 의문의 편지가 도착하게 되는데...</td>
+                                        </tr>
+                                    </tbody>
+                    
+                                </table>
+                            </div>
+
+                            <div class="col-md-3" style="padding-bottom: 10px;">
+                                <span>일반</span>
+                                <select class="form-select">
+                                    <option selected></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <span>청소년</span>
+                                <select class="form-select">
+                                    <option selected></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <span>우대</span>
+                                <select class="form-select">
+                                    <option selected></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <span>노인</span>
+                                <select class="form-select">
+                                    <option selected></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12"><div class="panel panel-default">
+                                <div class="panel-body" style="border: 1px solid;text-align: center;border-radius: 2px;min-height: 20px; margin-bottom: 20px;">총 인원 : 3명</div>
+                              </div></div>
+                                
+                    </div>
+                    <div class="form-group" style="text-align: right;">
+                        <button id="next_bt" type="submit" class="btn btn-primary"
+                            style="height: 50px; width: 100px;">뒤로가기</button>
+                        <button id="next_bt" type="submit" class="btn btn-primary"
+                            style="height: 50px; width: 100px;">선택완료</button>
+                    </div>
+                </div>
+            </div>
+            <script src="/js/jquery.nicescroll.js"></script>
+            <script src="/js/scripts.js"></script>
+        </body>
+
+        </html>

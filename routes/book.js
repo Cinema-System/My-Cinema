@@ -7,8 +7,16 @@ router.get("/seat", function (req, res) {
   res.render("book/seat");
 });
 
-router.get("/1", function (req, res) {
-  res.render("main/login", { title: "Express" });
+router.get("/mvgoer", function (req, res) {
+  res.render("book/mvgoer", { title: "Express" });
+});
+
+router.get("/cinema", function (req, res) {
+  res.render("book/cinema", { title: "Express" });
+});
+
+router.get("/movieselect", function (req, res) {
+  res.render("book/movieselect", { title: "Express" });
 });
 
 //모듈에 등록해야 app.js에서 app.use 함수를 통해서 사용 가능
