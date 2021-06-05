@@ -1,19 +1,10 @@
 var express = require("express");
 var router = express.Router();
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
-
-module.exports = router;
-var express = require("express");
-var router = express.Router();
-
 /* GET home page. */
 //라우터의 get()함수를 이용해 request URL('/')에 대한 업무처리 로직 정의
-router.get("/", function (req, res) {
-  res.render("main/index", { title: "Express" });
+router.get("/seat", function (req, res) {
+  res.render("book/seat");
 });
 
 router.get("/1", function (req, res) {

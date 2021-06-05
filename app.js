@@ -17,6 +17,10 @@ var app = express();
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var dbRouter = require("./routes/db");
+var payRouter = require("./routes/pay");
+var managerRouter = require("./routes/manager");
+var bookRouter = require("./routes/book");
+var mainRouter = require("./routes/main");
 
 // view engine setup, express 서버 포트 설정
 app.set("views", path.join(__dirname, "views"));
@@ -31,7 +35,11 @@ app.use(express.static(path.join(__dirname, "public")));
 // request 요청 URL과 처리 로직을 선언한 router 모듈 매핑
 // router 객체를 app 객체에 등록
 app.use("/", indexRouter);
+app.use("/main", mainRouter);
 app.use("/users", usersRouter);
+app.use("/pay", payRouter);
+app.use("/manager", managerRouter);
+app.use("/book", bookRouter);
 app.use("/db", dbRouter);
 
 // catch 404 and forward to error handler
