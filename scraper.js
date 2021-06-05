@@ -32,32 +32,4 @@ function arrayspliting(item) {
   return item !== null && item !== undefined && item !== "" && item !== " ";
 }
 
-Array.prototype.titledivision = function (n) {
-  var arr = this;
-  var len = arr.length;
-  var cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
-  var tmp = [];
-  for (var i = 0; i < cnt; i++) {
-    if (arr.slice(0, 1)[0].includes("관람")) {
-      tmp.push(arr.splice(0, n));
-    } else {
-      tmp.push(arr.splice(0, 1));
-    }
-  }
-  return tmp;
-};
-
-Array.prototype.mvdivision = function () {
-  var arr = this;
-  var tmp = [];
-  var idx = 0;
-  var cnt = arr.filter((element) => "개요" === element).length;
-  for (var i = 0; i < cnt; i++) {
-    idx = arr.indexOf("개요", 1);
-    tmp.push(arr.splice(0, idx));
-    if (idx == -1) {
-      tmp.push(arr.splice(1, arr.length));
-    }
-  }
-  return tmp;
-};
+  console.log(title + mv_info);
