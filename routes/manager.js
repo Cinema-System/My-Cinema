@@ -22,6 +22,12 @@ router.get("/screenway", function (req, res) {
 router.get("/theater", function (req, res) {
   res.render("manager/theater", { title: "Express" });
 });
+router.get("/schedule", function (req, res) {
+  res.render("manager/schedule", { title: "Express" });
+});
+router.get("/memchoice", function (req, res) {
+  res.render("manager/memchoice", { title: "Express" });
+});
 
 //모듈에 등록해야 app.js에서 app.use 함수를 통해서 사용 가능
 module.exports = router;
