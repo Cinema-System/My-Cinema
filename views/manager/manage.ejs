@@ -2,108 +2,74 @@
 
 
 
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <html>
 
-<head>
-    <style>
-        .my-custom-scrollbar {
-position: relative;
-margin-left:50px;
-margin-right:50px;
-width:700px;
-height: 300px;
-overflow: auto;
-}
-.table-wrapper-scroll-y {
-display: block;
-}
-    </style>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    
-    <title>좌석 예매</title>
-    <!-- for-mobile-apps -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords"
-        content="Movie Ticket Booking Widget Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <!-- //for-mobile-apps -->
-    <link href='//fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
-    <link
-        href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-        rel='stylesheet' type='text/css'>
-    <link href="/css/seatstyle.css" rel="stylesheet" type="text/css" media="all" />
-    <script src="/js/jquery-1.11.0.min.js"></script>
-    <script src="/js/jquery.seat-charts.js"></script>
-</head>
+    <head>
+        <style>
+            .my-button {
+                height: 100px;
+                width: 200px;
+                margin: 15px;
+                font-size: large;
+            }
+        </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-<body>
-    <div class="content">
-        <h1>DEJH</h1>
-        <div class="main">
-            <h2>영화 선택</h2>
-            <div class=row>
-                <div class="table-wrapper-scroll-y my-custom-scrollbar" >
+        <title>좌석 예매</title>
+        <!-- for-mobile-apps -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords"
+            content="Movie Ticket Booking Widget Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <!-- //for-mobile-apps -->
+        <link href='//fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
+        <link
+            href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+            rel='stylesheet' type='text/css'>
+        <link href="/css/seatstyle.css" rel="stylesheet" type="text/css" media="all" />
+        <script src="/js/jquery-1.11.0.min.js"></script>
+        <script src="/js/jquery.seat-charts.js"></script>
+    </head>
 
-                    <table class="table table-bordered table-striped mb-0" >
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">First</th>
-                          <th scope="col">Last</th>
-                          <th scope="col">Delete</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">4</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">5</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">6</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  
-                  </div>    
-            </div>
-            <div class="form-group" style="text-align: right;">
-                <button id="next_bt" type="submit" class="btn btn-primary" style="height: 50px; width: 100px;">뒤로가기</button>
+    <body>
+        <div class="content">
+            <h1>DEJH</h1>
+            <div class="main">
+                <h2>관리자</h2>
+                <div class=row>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">지역</button>
+                    </div>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">영화관</button>
+                    </div>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">상영관</button>
+                    </div>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">상영일정</button>
+                    </div>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">영화</button>
+                    </div>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">관람방식</button>
+                    </div>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">상영방식</button>
+                    </div>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">상영일정</button>
+                    </div>
+                    <div class="col-md-4 "><button id="next_bt" type="submit" class="my-button">고객</button>
+                    </div>
+                    
+                </div>
+                
+                <div class="form-group" style="text-align: right;">
+                    <button id="next_bt" type="submit" class="btn btn-primary"
+                        style="height: 50px; width: 100px;">뒤로가기</button>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="/js/jquery.nicescroll.js"></script>
-    <script src="/js/scripts.js"></script>
-</body>
+        </div>
+        <script src="/js/jquery.nicescroll.js"></script>
+        <script src="/js/scripts.js"></script>
+    </body>
 
-</html>
+    </html>
