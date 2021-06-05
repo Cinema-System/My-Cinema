@@ -5109,7 +5109,7 @@ a.close.disabled {
 
 .carousel-inner {
   position: relative;
-  width: 100%;
+  width: 50%;
   overflow: hidden; }
   .carousel-inner::after {
     display: block;
