@@ -70,7 +70,7 @@ CREATE TABLE MEMBERS_INFO (
     MEMPHONE NUMBER(11),            -- 전화번호
     MEMBIRTH DATE,                  -- 생년월일
     ISVERIFICATION BINARY_FLOAT,    -- 본인인증여부
-    TOTALPONUNINT NUMBER(6),        -- 누적포인트
+    TOTALPOINT NUMBER(6),        -- 누적포인트
     MEMID VARCHAR2(20) REFERENCES USERS(USERID) ON DELETE CASCADE,   -- 아이디
     PRIMARY KEY(MEMID)
 );
