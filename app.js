@@ -15,7 +15,7 @@ var app = express();
 
 //라우팅 모듈 선언
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var userRouter = require("./routes/user");
 var dbRouter = require("./routes/db");
 var payRouter = require("./routes/pay");
 var managerRouter = require("./routes/manager");
@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // router 객체를 app 객체에 등록
 app.use("/", indexRouter);
 app.use("/main", mainRouter);
-app.use("/users", usersRouter);
+app.use("/user", userRouter);
 app.use("/pay", payRouter);
 app.use("/manager", managerRouter);
 app.use("/book", bookRouter);
