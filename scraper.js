@@ -53,10 +53,15 @@ getHTML().then((html) => {
     for(i=0;i<10;i++){
     oracledb.getConnection(
       {
+        user: dbConfig.user,//process.env.HR_USER,
+      password: dbConfig.password,//process.env.HR_PASSWORD,
+      connectString: dbConfig.connectString,//process.env.HR_CONNECTIONSTRING,
+      },
+      {
         mvno: dbConfig.mvno,
         mvname: dbConfig.mvname,
         mvdirector: dbConfig.mvdirector,
-        mvreleasedate: dbConfig.mvreleasedate,
+        // mvreleasedate: dbConfig.mvreleasedate,
         mvclass: dbConfig.mvclass,
         mvruntime: dbConfig.mvruntime,
         mvgenre: dbConfig.mvgenre,
@@ -73,19 +78,20 @@ getHTML().then((html) => {
       // /PrepareStatement 구조
       //MVRELEASEDATE,
       let query =
-        "INSERT INTO MOVIE(MVNO, MVNAME, MVDIRECTOR, MVCLASS, MVRUNTIME, MVGENRE, MVSTORY, MVPREVIEW, MVPOST)"+
-        "VALUES(MVNO, :MVNAME, :MVDIRECTOR, :MVCLASS, :MVRUNTIME, :MVGENRE, :MVSTORY, :MVPREVIEW, :MVPOST);";
+        "INSERT INTO MOVIE(MVNO, MVNAME, MVRELEASEDATE, MVDIRECTOR, MVCLASS, MVRUNTIME, MVGENRE, MVSTORY, MVPREVIEW, MVPOST) "+
+        "VALUES(:MVNO, :MVNAME, :MVRELEASEDATE, :MVDIRECTOR, :MVCLASS, :MVRUNTIME, :MVGENRE, :MVSTORY, :MVPREVIEW, :MVPOST);";
 
       let binddata = [
         "mv000",
         title[i][1],
+        TO_DATE("2017-12-10 00:00:00"),
         mv_info[i][directoridx],
-        title[i][0],
-        mv_info[i][runtimeidx],
+        NUMBER(title[i][0]),
+        NUMBER(mv_info[i][runtimeidx]),
         mv_info[i][1],
         "더보기",
-        "예고편",
-        "포스터"
+        "http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg",
+        "http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg"
       ];
 
       connection.execute(query, binddata, function (err, result) {
