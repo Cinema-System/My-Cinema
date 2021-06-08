@@ -1,14 +1,16 @@
 //필요한 모듈 선언
 var createError = require("http-errors");
-// var http = require('http');
+var http = require('http');
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var debug = require("debug")("mycinema:server");
-var http = require("http");
-// var oracledb = require('oracledb');
+// var debug = require("debug")("mycinema:server");
+var oracledb = require('oracledb');
 // var dbConfig = require('./conf/dbconfig');
+
+// Oracle Auto Commit 설정
+oracledb.autoCommit = true;
 
 // express 객체 생성
 var app = express();
@@ -114,4 +116,4 @@ function onListening() {
 
 console.log("server on! http://localhost:" + port);
 
-module.exports = app;
+module.exports = app;  
