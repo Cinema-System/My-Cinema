@@ -1,117 +1,133 @@
-//필요한 모듈 선언
-var createError = require("http-errors");
-// var http = require('http');
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var debug = require("debug")("mycinema:server");
-var http = require("http");
-// var oracledb = require('oracledb');
-// var dbConfig = require('./conf/dbconfig');
+var oracledb = require('oracledb');
+var dbConfig = require("./conf/dbconfig");
+// Express 기본 모듈 불러오기
+var express = require('express')
+  , http = require('http')
+  , path = require('path');
 
-// express 객체 생성
+// 익스프레스 객체 생성
 var app = express();
+ 
+// 기본 속성 설정
+app.set('port', process.env.PORT || 3000);
 
-//라우팅 모듈 선언
-var indexRouter = require("./routes/index");
-var userRouter = require("./routes/user");
-var dbRouter = require("./routes/db");
-var payRouter = require("./routes/pay");
-var managerRouter = require("./routes/manager");
-var bookRouter = require("./routes/book");
-var mainRouter = require("./routes/main");
+// body-parser
+var bodyParser = require('body-parser');
 
-// view engine setup, express 서버 포트 설정
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+// 라우터 객체 참조
+var router = express.Router();
 
-// request 요청 URL과 처리 로직을 선언한 router 모듈 매핑
-// router 객체를 app 객체에 등록
-app.use("/", indexRouter);
-app.use("/main", mainRouter);
-app.use("/user", userRouter);
-app.use("/pay", payRouter);
-app.use("/manager", managerRouter);
-app.use("/book", bookRouter);
-app.use("/db", dbRouter);
+// Oracle Auto Commit 설정
+oracledb.autoCommit = true;
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+// 데이터 조회 처리
+router.post('/dbTestSelect', function(request, response){
+
+    oracledb.getConnection({
+        user            : dbConfig.user,
+        password        : dbConfig.password,
+        connectString   : dbConfig.connectString
+    },
+    function(err, connection) {
+        if (err) {
+            console.error(err.message);
+            return;
+        }
+
+        let query = 
+            'select * ' +
+            '   from emp';
+
+        connection.execute(query, [], function (err, result) {
+            if (err) {
+                console.error(err.message);
+                doRelease(connection);
+                return;
+            }
+            console.log(result.rows);                   // 데이터
+            doRelease(connection, result.rows);         // Connection 해제
+        });
+    });    
+
+    // DB 연결 해제
+    function doRelease(connection, rowList) {
+        connection.release(function (err) {
+            if (err) {
+                console.error(err.message);
+            }
+
+            // DB종료까지 모두 완료되었을 시 응답 데이터 반환
+            console.log('list size: ' + rowList.length);
+            
+            response.send(rowList);
+        });
+    }
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+// 데이터 입력 처리
+router.post('/dbTestInsert', function(request, response){
+
+    oracledb.getConnection({
+        user            : dbConfig.user,
+        password        : dbConfig.password,
+        connectString   : dbConfig.connectString
+    },
+    function(err, connection) {
+        if (err) {
+            console.error(err.message);
+            return;
+        }
+
+        // PrepareStatement 구조
+        let query = 
+            'INSERT INTO LOCAL(LOCALNO, LOCALNAME) ' +
+              'VALUES( :LOCALNO, :LOCALNAME)';
+
+        let binddata = [
+            'LOCAL08',
+            '다은마을'        
+        ];
+
+        connection.execute(query, binddata, function (err, result) {
+            if (err) {
+                console.error(err.message);
+                doRelease(connection);
+                return;
+            }
+            console.log('Row Insert: ' + result.rowsAffected);
+
+            doRelease(connection, result.rowsAffected);         // Connection 해제
+        });
+    });    
+
+    // DB 연결 해제
+    function doRelease(connection, result) {
+        connection.release(function (err) {
+            if (err) {
+                console.error(err.message);
+            }
+
+            // DB종료까지 모두 완료되었을 시 응답 데이터 반환
+            response.send(''+result);
+        });
+    }
 });
 
-var port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
-var server = http.createServer(app);
-
-server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-function onError(error) {
-  if (error.syscall !== "listen") {
-    throw error;
-  }
-
-  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case "EACCES":
-      console.error(bind + " requires elevated privileges");
-      process.exit(1);
-      break;
-    case "EADDRINUSE":
-      console.error(bind + " is already in use");
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  debug("Listening on " + bind);
-}
-
-console.log("server on! http://localhost:" + port);
-
-module.exports = app;
+// 라우터 객체를 app 객체에 등록
+app.use('/', router);
+ 
+ 
+// 등록되지 않은 패스에 대해 페이지 오류 응답
+app.all('*', function(req, res) {
+    res.status(404).send('<h1>ERROR - 페이지를 찾을 수 없습니다.</h1>');
+});
+ 
+ 
+// Express 서버 시작
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
