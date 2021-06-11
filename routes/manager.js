@@ -98,7 +98,7 @@ router.post("/local", function (request, response) {
       connection.execute(selquery, [], function (err, result) {
         if (err) {
           console.error(err.message);
-          // doRelease(connection);
+          doRelease(connection);
           return;
         }
         // 컬럼 수만큼 돌면서 마지막 2자리 문자열을 숫자화 후 비교하여 최댓값을 localmax에 대입
@@ -108,7 +108,7 @@ router.post("/local", function (request, response) {
             localmax = resultint;
           }
         }
-        // doRelease(connection, result.rows); // Connection 해제 <<오류남>>
+        doRelease(connection, result.rows); // Connection 해제
 
         //0x xx등 2자리 수로 만들어준 다음 문자열화 시켜서 localcnt에 삽입
         localmax += "";
@@ -135,6 +135,15 @@ router.post("/local", function (request, response) {
         }
         console.log("Row Insert: " + result.rowsAffected);
         // doRelease(connection, result.rowsAffected); // Connection 해제
+      });
+    },
+
+    // DB 연결 해제
+    function doRelease(connection, result) {
+      connection.release(function (err) {
+        if (err) {
+          console.error(err.message);
+        }
       });
     }
   );
