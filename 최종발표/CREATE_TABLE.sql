@@ -59,7 +59,7 @@ CREATE TABLE NONMEMBERS_INFO (
     NONMEMPHONE NUMBER(11),         -- 전화번호
     NONMEMBIRTH DATE,               -- 생년월일
     ISVERIFICATION BINARY_FLOAT,    -- 본인인증여부
-    ISCLASS BINARY_FLOAT,   -- 시청가능여부
+    ISCLASS BINARY_FLOAT,           -- 시청가능여부
     PRIMARY KEY(NONMEMID)
 );
 
@@ -72,8 +72,8 @@ CREATE TABLE MEMBERS_INFO (
     MEMPHONE NUMBER(11),            -- 전화번호
     MEMBIRTH DATE,                  -- 생년월일
     ISVERIFICATION BINARY_FLOAT,    -- 본인인증여부
-    ISCLASS BINARY_FLOAT,   -- 시청가능여부
-    TOTALPOINT NUMBER(6),        -- 누적포인트
+    ISCLASS BINARY_FLOAT,           -- 시청가능여부
+    TOTALPOINT NUMBER(6),           -- 누적포인트
     PRIMARY KEY(MEMID)
 );
 
@@ -109,8 +109,8 @@ CREATE TABLE LOCAL (
     쪽운동장마을 : 과학기술관(과기관), 미래관, 100주년기념관(100기관)
 */
 CREATE TABLE CINEMA (
-    LOCALNO CHAR(7) REFERENCES LOCAL(LOCALNO),  -- 지역_식별문자
     CINEMANO CHAR(8),           -- 식별문자
+    LOCALNO CHAR(7) REFERENCES LOCAL(LOCALNO),  -- 지역_식별문자
     CINEMANAME VARCHAR2(20),    -- 이름
     PRIMARY KEY(CINEMANO)
 );
