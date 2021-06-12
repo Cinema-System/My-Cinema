@@ -22,7 +22,6 @@ var dbRouter = require("./routes/db");
 var payRouter = require("./routes/pay");
 var managerRouter = require("./routes/manager");
 var bookRouter = require("./routes/book");
-var baseRouter = require("./routes/base");
 
 // view engine setup, express 서버 포트 설정
 app.set("views", path.join(__dirname, "views"));
@@ -37,7 +36,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // request 요청 URL과 처리 로직을 선언한 router 모듈 매핑
 // router 객체를 app 객체에 등록
 app.use("/", indexRouter);
-app.use("/base", baseRouter);
 app.use("/user", userRouter);
 app.use("/pay", payRouter);
 app.use("/manager", managerRouter);
