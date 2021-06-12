@@ -29,7 +29,7 @@
         <h1>DEJH</h1>
         <div class="main">
             <h2>본인 인증</h2>
-            <form action="/users" method="post" style="margin: auto; text-align: center;">
+            <form action="./verification_complete" method="post" style="margin: auto; text-align: center;">
                 <div id="new_form">
                     <div class="form-group row">
                         <label for="username" class="col-sm-3 col-form-label">아이디</label>
@@ -79,11 +79,11 @@
 
                         </div>
                     </div>
-                </div>
+                </div><button  id="next_bt" type="submit" class="btn btn-primary"
+                    style="height: 50px; width: 100px;">완료</button>
             </form>
             <div class="form-group" style="text-align: right;">
-                <button id="next_bt" type="submit" class="btn btn-primary" style="height: 50px; width: 100px;">완료</button>
-              </div>
+                </div>
         </div>
     </div>
     <script src="/js/jquery.nicescroll.js"></script>
