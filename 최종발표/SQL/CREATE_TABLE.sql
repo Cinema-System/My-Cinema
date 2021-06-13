@@ -1,65 +1,65 @@
 -- 영화
 CREATE TABLE MOVIE (
-    MVNO CHAR(7),               -- 식별문자 (MVXXXXX)        
-    MVNAME VARCHAR2(40),        -- 제목
-    MVRELEASEDATE DATE,         -- 개봉일
-    MVDIRECTOR VARCHAR2(20),    -- 감독
-    MVCLASS NUMBER(2),          -- 시청등급
-    MVRUNTIME NUMBER(3),        -- 상영시간 (단위 : MIN)
-    MVGENRE VARCHAR2(10),       -- 장르
-    MVSTORY NVARCHAR2(1000),    -- 줄거리
-    MVPREVIEW BLOB,             -- 예고편
-    MVPOST BLOB,                -- 포스터
+    MVNO CHAR(7) NOT NULL,                  -- 식별문자 (MVXXXXX)        
+    MVNAME VARCHAR2(40) UNIQUE NOT NULL,    -- 제목
+    MVRELEASEDATE DATE NOT NULL,            -- 개봉일
+    MVDIRECTOR VARCHAR2(20) NOT NULL,       -- 감독
+    MVCLASS NUMBER(2) NOT NULL,             -- 시청등급
+    MVRUNTIME NUMBER(3) NOT NULL,           -- 상영시간 (단위 : MIN)
+    MVGENRE VARCHAR2(10) NOT NULL,          -- 장르
+    MVSTORY NVARCHAR2(1000),                -- 줄거리
+    MVPREVIEW BLOB,                         -- 예고편
+    MVPOST BLOB,                            -- 포스터
     PRIMARY KEY(MVNO)
 );
  
 -- 영화일정정보
 CREATE TABLE MOVIESCHEDULE_INFO (
-    MVNO CHAR(7) REFERENCES MOVIE(MVNO),   -- 영화_식별문자
-    STARTEDATE DATE,        -- 시작일
-    CLOSEDATE DATE,         -- 종료일
-    ISMOVIE BINARY_FLOAT,   -- 영화상영여부
+    MVNO CHAR(7) REFERENCES MOVIE(MVNO) NOT NULL,   -- 영화_식별문자
+    STARTEDATE DATE NOT NULL,                       -- 시작일
+    CLOSEDATE DATE,                                 -- 종료일
+    ISMOVIE BINARY_FLOAT DEFAULT 0,                 -- 영화상영여부
     PRIMARY KEY(MVNO)
 );
 
 -- 영화인기정보
 CREATE TABLE MOVIE_INFO (
-    MVNO CHAR(7) REFERENCES MOVIE(MVNO),   -- 영화_식별문자
-    MVBOOKRANK NUMBER(2),   -- 예매순위 
-    MVBOOKRATE NUMBER(4,2), -- 예매율
+    MVNO CHAR(7) REFERENCES MOVIE(MVNO),        -- 영화_식별문자
+    MVBOOKRANK NUMBER(2) DEFAULT 0,             -- 예매순위 
+    MVBOOKRATE NUMBER(4,2) DEFAULT 0 NOT NULL,  -- 예매율
     PRIMARY KEY(MVNO)
 );
 
 -- 배우정보
 CREATE TABLE ACTOR_INFO (
-    MVNO CHAR(7) REFERENCES MOVIE(MVNO),   -- 영화_식별문자
-    ACTORNAME VARCHAR2(20), -- 배우이름
+    MVNO CHAR(7) REFERENCES MOVIE(MVNO),    -- 영화_식별문자
+    ACTORNAME VARCHAR2(20) NOT NULL,        -- 배우이름
     PRIMARY KEY(MVNO)
 );
 
 -- 본인인증
 CREATE TABLE VERIFICATION (
-    VERNAME VARCHAR2(10),   -- 이름
-    VERPHONE NUMBER(11),    -- 전화번호
-    VERBIRTH DATE           -- 생년월일 
+    VERNAME VARCHAR2(10) NOT NULL,  -- 이름
+    VERPHONE NUMBER(11)NOT NULL,    -- 전화번호
+    VERBIRTH DATE NOT NULL          -- 생년월일 
 );
 
 -- 사용자
 CREATE TABLE USERS ( 
-    USERID VARCHAR2(20),    -- 식별아이디
-    USERCODE NUMBER(1),     -- 구분코드 (0=비회원, 1=회원, 2=관리자)
+    USERID VARCHAR2(20) NOT NULL,   -- 식별아이디
+    USERCODE NUMBER(1) NOT NULL,    -- 구분코드 (0=비회원, 1=회원, 2=관리자)
     PRIMARY KEY(USERID)
 );
 
 -- 비회원정보
 CREATE TABLE NONMEMBERS_INFO (
-    NONMEMID VARCHAR2(20) REFERENCES USERS(USERID) ON DELETE CASCADE,    -- 임시아이디
-    NONMEMPWD VARCHAR2(20),         -- 임시비밀번호 
-    NONMEMNAME VARCHAR2(10),        -- 이름
-    NONMEMPHONE NUMBER(11),         -- 전화번호
-    NONMEMBIRTH DATE,               -- 생년월일
-    ISVERIFICATION BINARY_FLOAT,    -- 본인인증여부
-    ISCLASS BINARY_FLOAT,           -- 시청가능여부
+    NONMEMID VARCHAR2(20) REFERENCES USERS(USERID) ON DELETE CASCADE NOT NULL,  -- 임시아이디
+    NONMEMPWD VARCHAR2(20) NOT NULL,                -- 임시비밀번호 
+    NONMEMNAME VARCHAR2(10) NOT NULL,               -- 이름
+    NONMEMPHONE NUMBER(11) NOT NULL,                -- 전화번호
+    NONMEMBIRTH DATE NOT NULL,                      -- 생년월일
+    ISVERIFICATION BINARY_FLOAT DEFAULT 0 NOT NULL, -- 본인인증여부
+    ISCLASS BINARY_FLOAT NOT NULL,                  -- 시청가능여부
     PRIMARY KEY(NONMEMID)
 );
 
@@ -140,6 +140,12 @@ CREATE TABLE THEATER (
     PRIMARY KEY(THEATERNO),
     CONSTRAINT THEATERNO_CINEMANO_KEY UNIQUE(THEATERNO, CINEMANO)
 );
+
+-- CREATE UNIQUE INDEX XPK상영관 ON 상영관
+-- (영화관_식별문자   ASC,식별문자   ASC);
+
+-- ALTER TABLE 상영관
+-- 	ADD CONSTRAINT  XPK상영관 PRIMARY KEY (영화관_식별문자,식별문자);
 
 -- 상영일정
 CREATE TABLE SCHEDULE (
