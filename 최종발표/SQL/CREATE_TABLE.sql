@@ -73,7 +73,7 @@ CREATE TABLE MEMBERS_INFO (
     MEMBIRTH DATE,                  -- 생년월일
     ISVERIFICATION BINARY_FLOAT,    -- 본인인증여부
     ISCLASS BINARY_FLOAT,           -- 시청가능여부
-    TOTALPOINT NUMBER(6),           -- 누적포인트
+    TOTALPOINT NUMBER(6),           -- 총포인트
     PRIMARY KEY(MEMID)
 );
 
