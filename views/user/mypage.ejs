@@ -7,7 +7,7 @@
         <style>
             .my-button {
                 height: 80px;
-                width: 650px;
+                width: 580px;
                 margin: 15px;
                 font-size: large;
             }
@@ -37,20 +37,20 @@
             <h1>DEJH</h1>
             <div class="main">
                 <h2>마이페이지</h2>
-                <div class=row>
-                    <div class="col-md-12 "><button id="next_bt" type="submit" class="my-button">회원정보 조회</button>
+                <div class=row >
+                    <div class="col-md-12 "><button onclick="location.href='./info'" id="next_bt" type="submit" class="my-button">회원정보 조회</button>
                     </div>
-                    <div class="col-md-12 "><button id="next_bt" type="submit" class="my-button">결제 내역</button>
+                    <div class="col-md-12 "><button onclick="location.href='./paylist'" id="next_bt" type="submit" class="my-button">결제 내역</button>
                     </div>
-                    <div class="col-md-12 "><button id="next_bt" type="submit" class="my-button">포인트내역</button>
+                    <div class="col-md-12 "><button onclick="location.href='./point'" id="next_bt" type="submit" class="my-button">포인트내역</button>
                     </div>
-                    <div class="col-md-12"><button id="next_bt" type="submit" class="my-button">회원탈퇴</button>
+                    <div class="col-md-12"><a href="../"><button onclick="confirm('회원을 탈퇴하시겠습니까?')"id="next_bt" type="submit" class="my-button">회원탈퇴</button></a>
                     </div>
 
                 </div>
 
                 <div class="form-group" style="text-align: right;">
-                    <button id="next_bt" type="submit" class="btn btn-primary"
+                    <button onclick="location.href='../'" id="next_bt" type="submit" class="btn btn-primary"
                         style="height: 50px; width: 100px;">뒤로가기</button>
                 </div>
             </div>
