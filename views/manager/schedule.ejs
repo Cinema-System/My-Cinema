@@ -1,4 +1,5 @@
-<%# 영화 정보 수정 %>
+<%# 지역 정보 수정 %>
+
 
 
 
@@ -41,66 +42,68 @@ display: block;
 <body>
     <div class="content">
         <h1>DEJH</h1>
-        <div class="main">
+        <div class="main" style="text-align: center;">
             <h2>상영 일정 수정</h2>
-            <div class=row>
-                <div class="table-wrapper-scroll-y my-custom-scrollbar" >
+            <div class=row style="margin:0px;">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar col-md-10" >
 
                     <table class="table table-bordered table-striped mb-0" >
                       <thead>
                         <tr>
                           <th scope="col">#</th>
-                          <th scope="col">First</th>
-                          <th scope="col">Last</th>
-                          <th scope="col">Delete</th>
+                          <th scope="col">영화관</th>
+                          <th scope="col">상영관</th>
+                          <th scope="col">날짜</th>
+                          <th scope="col">영화</th>
+                          <th scope="col">삭제</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
+                          <td>건공관</td>
+                          <td>2관</td>
+                          <td>210605</td>
+                          <td>겨울왕국</td>
                           <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
                         </tr>
                         <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
+                          <th scope="row">1</th>
+                          <td>배봉관</td>
+                          <td>1관</td>
+                          <td>210605</td>
+                          <td>살인의 추억</td>
                           <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
                         </tr>
                         <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
+                          <th scope="row">1</th>
+                          <td>배봉관</td>
+                          <td>3D관</td>
+                          <td>210605</td>
+                          <td>그놈 목소리</td>
                           <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
                         </tr>
                         <tr>
-                          <th scope="row">4</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
+                          <th scope="row">1</th>
+                          <td>배봉관</td>
+                          <td>4관</td>
+                          <td>210605</td>
+                          <td>Bird Man</td>
                           <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
                         </tr>
-                        <tr>
-                          <th scope="row">5</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">6</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr>
+                        
                       </tbody>
                     </table>
                   
                   </div>    
-            </div>
-            <div class="form-group" style="text-align: right;">
-                <button id="next_bt" type="submit" class="btn btn-primary" style="height: 50px; width: 100px;">뒤로가기</button>
-                <button id="next_bt" type="submit" class="btn btn-primary" style="height: 50px; width: 100px;">추가하기</button>
-            </div>
+                  <div class="col-md-12 row" style="text-align: right;">
+            <form action="./local" method="post" class="form-group col-md-10" style="text-align: right;">
+                <input type="text" name="newItem" placeholder="상영일정" autocomplete="off">
+                <button name="new_local" type="submit" class="btn btn-primary" style="height: 50px; width: 100px;">추가하기</button>
+            </form>
+            <button onclick="location.href='./manage'" type="submit" class="btn btn-primary col-md-1.5" style="height: 50px; width: 100px;">뒤로가기</button>
+        </div>
+          </div>
         </div>
     </div>
     <script src="/js/jquery.nicescroll.js"></script>
