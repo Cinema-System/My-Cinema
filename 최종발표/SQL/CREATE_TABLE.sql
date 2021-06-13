@@ -53,7 +53,7 @@ CREATE TABLE USERS (
 
 -- 비회원정보
 CREATE TABLE NONMEMBERS_INFO (
-    NONMEMID VARCHAR2(20) REFERENCES USERS(USERID) ON DELETE CASCADE NOT NULL,  -- 임시아이디
+    NONMEMID VARCHAR2(20) REFERENCES USERS(USERID) ON DELETE CASCADE,  -- 임시아이디
     NONMEMPWD VARCHAR2(20) NOT NULL,                -- 임시비밀번호 
     NONMEMNAME VARCHAR2(10) NOT NULL,               -- 이름
     NONMEMPHONE NUMBER(11) NOT NULL,                -- 전화번호
@@ -65,15 +65,15 @@ CREATE TABLE NONMEMBERS_INFO (
 
 -- 회원정보
 CREATE TABLE MEMBERS_INFO (
-    MEMID VARCHAR2(20) REFERENCES USERS(USERID) ON DELETE CASCADE,   -- 아이디
-    MEMPWD VARCHAR2(20),            -- 비밀번호 
-    MEMNAME VARCHAR2(10),           -- 이름
-    MEMEMAIL VARCHAR2(40),          -- 이메일
-    MEMPHONE NUMBER(11),            -- 전화번호
-    MEMBIRTH DATE,                  -- 생년월일
-    ISVERIFICATION BINARY_FLOAT,    -- 본인인증여부
-    ISCLASS BINARY_FLOAT,           -- 시청가능여부
-    TOTALPOINT NUMBER(6),           -- 총포인트
+    MEMID VARCHAR2(20) REFERENCES USERS(USERID) ON DELETE CASCADE, -- 아이디
+    MEMPWD VARCHAR2(20) NOT NULL,                   -- 비밀번호 
+    MEMNAME VARCHAR2(10) NOT NULL,                  -- 이름
+    MEMEMAIL VARCHAR2(40) NOT NULL,                 -- 이메일
+    MEMPHONE NUMBER(11) NOT NULL,                   -- 전화번호
+    MEMBIRTH DATE NOT NULL,                         -- 생년월일
+    ISVERIFICATION BINARY_FLOAT DEFAULT 0 NOT NULL, -- 본인인증여부
+    ISCLASS BINARY_FLOAT NOT NULL,                  -- 시청가능여부
+    TOTALPOINT NUMBER(6) DEFAULT 0 NOT NULL,        -- 총포인트
     PRIMARY KEY(MEMID)
 );
 
@@ -87,31 +87,23 @@ CREATE TABLE BESTGENRE_INFO (
 -- 관리자정보
 CREATE TABLE MANAGERS_INFO (
     MNGID VARCHAR2(20) REFERENCES USERS(USERID) ON DELETE CASCADE, -- 아이디
-    MNGPWD VARCHAR2(20),        -- 비밀번호 
-    MNGNAME VARCHAR2(10),       -- 이름
+    MNGPWD VARCHAR2(20) NOT NULL,       -- 비밀번호 
+    MNGNAME VARCHAR2(10) NOT NULL,      -- 이름
     PRIMARY KEY(MNGID)
 );
 
 -- 지역
-/* 정문통학마을, 학식러버마을, 후문자취마을, 하늘연못마을, 쪽운동장마을 */
 CREATE TABLE LOCAL (
-    LOCALNO CHAR(7),        -- 식별문자
-    LOCALNAME VARCHAR2(20), -- 이름
+    LOCALNO CHAR(7) NOT NULL,               -- 식별문자
+    LOCALNAME VARCHAR2(20) UNIQUE NOT NULL, -- 이름
     PRIMARY KEY(LOCALNO)
 );
 
 -- 영화관
-/*
-    정문통학마을 : 전농관, 자작마루, 건설공학관(건공관)
-    학식러버마을 : 학생회관(학관), 21세기관(21관), 자연과학관(자과관)
-    후문자취마을 : 창공관, 배봉관
-    하늘연못마을 : 정보기술관(정기관), 인문학관, 음악관
-    쪽운동장마을 : 과학기술관(과기관), 미래관, 100주년기념관(100기관)
-*/
 CREATE TABLE CINEMA (
-    CINEMANO CHAR(8),           -- 식별문자
-    LOCALNO CHAR(7) REFERENCES LOCAL(LOCALNO),  -- 지역_식별문자
-    CINEMANAME VARCHAR2(20),    -- 이름
+    CINEMANO CHAR(8) NOT NULL,                          -- 식별문자
+    LOCALNO CHAR(7) REFERENCES LOCAL(LOCALNO) NOT NULL, -- 지역_식별문자
+    CINEMANAME VARCHAR2(20) UNIQUE NOT NULL,            -- 이름
     PRIMARY KEY(CINEMANO)
 );
 
@@ -124,38 +116,36 @@ CREATE TABLE CINEMA (
     SOUNDX : 30000원 (X3)
 */
 CREATE TABLE SCREENWAY (
-    SCRWAYNO CHAR(8),       -- 식별문자
-    SCRWAY VARCHAR2(8),     -- 상영방식
-    SCRPRICE NUMBER(5),     -- 상영금액
+    SCRWAYNO CHAR(8) NOT NULL,                          -- 식별문자
+    SCRWAY VARCHAR2(8) DEFAULT '2D' UNIQUE NOT NULL,    -- 상영방식
+    SCRPRICE NUMBER(5) DEFAULT 10000 NOT NULL,          -- 상영금액
     PRIMARY KEY(SCRWAYNO)
 );
 
 -- 상영관
 CREATE TABLE THEATER (
-    THEATERNO CHAR(9),      -- 식별문자
+    THEATERNO CHAR(9) NOT NULL,     -- 식별문자
     CINEMANO CHAR(8) REFERENCES CINEMA(CINEMANO) NOT NULL,      -- 영화관_식별문자
-    SCRWAYNO CHAR(8) REFERENCES SCREENWAY(SCRWAYNO),            -- 상영방식_식별문자
-    SEATTTL NUMBER(3),      -- 총좌석수
-    SEATCNT NUMBER(3),      -- 누적좌석수
-    PRIMARY KEY(THEATERNO),
-    CONSTRAINT THEATERNO_CINEMANO_KEY UNIQUE(THEATERNO, CINEMANO)
+    SCRWAYNO CHAR(8) REFERENCES SCREENWAY(SCRWAYNO) NOT NULL,   -- 상영방식_식별문자
+    SEATTTL NUMBER(3) DEFAULT 0 NOT NULL,     -- 총좌석수
+    SEATCNT NUMBER(3) DEFAULT 0 NOT NULL      -- 누적좌석수
 );
-
--- CREATE UNIQUE INDEX XPK상영관 ON 상영관
--- (영화관_식별문자   ASC,식별문자   ASC);
-
--- ALTER TABLE 상영관
--- 	ADD CONSTRAINT  XPK상영관 PRIMARY KEY (영화관_식별문자,식별문자);
+CREATE UNIQUE INDEX XPK_THEATER ON THEATER (THEATERNO  ASC, CINEMANO ASC);
+ALTER TABLE THEATER ADD CONSTRAINT XPK_THEATER PRIMARY KEY (THEATERNO, CINEMANO);
 
 -- 상영일정
 CREATE TABLE SCHEDULE (
-    SCHNO CHAR(10), -- 식별문자
-    CINEMANO CHAR(8) REFERENCES CINEMA(CINEMANO),      -- 영화관_식별문자
-    THEATERNO CHAR(9) REFERENCES THEATER(THEATERNO),   -- 상영관_식별문자
-    MVNO CHAR(7) REFERENCES MOVIE(MVNO),               -- 영화_식별문자
-    SCHTIME DATE,   -- 상영일자 (날짜랑 시각 포함)
-    PRIMARY KEY(SCHNO)
+    SCHNO CHAR(10) NOT NULL,    -- 식별문자
+    CINEMANO CHAR(8) REFERENCES CINEMA(CINEMANO) NOT NULL,      -- 영화관_식별문자
+    THEATERNO CHAR(9) REFERENCES THEATER(THEATERNO) NOT NULL,   -- 상영관_식별문자
+    MVNO CHAR(7) REFERENCES MOVIE(MVNO) NOT NULL,               -- 영화_식별문자
+    SCHTIME DATE NOT NULL   -- 상영일자 (날짜랑 시각 포함)
 );
+
+CREATE UNIQUE INDEX XPK_SCHEDULE ON SCHEDULE (SCHNO ASC);
+
+ALTER TABLE SCHEDULE ADD CONSTRAINT XPK_SCHEDULE PRIMARY KEY (SCHNO);
+ALTER TABLE SCHEDULE ADD (CONSTRAINT FK_THEATER FOREIGN KEY (THEATERNO, CINEMANO) REFERENCES THEATER (THEATERNO, CINEMANO));
 
 -- 좌석
 CREATE TABLE SEAT (
