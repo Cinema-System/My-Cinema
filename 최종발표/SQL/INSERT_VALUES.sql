@@ -162,7 +162,6 @@ INSERT INTO THEATER VALUES('THEATER70', 'CINEMA14', 'SCRWAY02', 20, 20);
 
 -- 좌석 도메인
 -- INSERT INTO SEAT VALUES(좌석문자, 상영관_식별문자, 좌석여부, 상영일정_식별문자);
--- 상영일정이 등록되면 생성된다.
 
 -- 관객방식 도메인
 -- INSERT INTO MOVIEGOERS VALUES(식별문자, 관객방식, 할인율);
