@@ -1,78 +1,122 @@
 <%# 비회원으로 이용 %>
 
-<%# 좌석선택 %>
+    <%# 좌석선택 %>
 
+        <!DOCTYPE html>
+        <html>
 
-<!DOCTYPE html>
-<html>
+            <head>
+                <title>좌석 예매</title>
+                <link
+                    rel="stylesheet"
+                    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                    crossorigin="anonymous">
+                    <!-- for-mobile-apps -->
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1, maximum-scale=1">
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                        <meta
+                            name="keywords"
+                            content="Movie Ticket Booking Widget Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+                        <!-- //for-mobile-apps -->
+                        <link
+                            href='//fonts.googleapis.com/css?family=Kotta+One'
+                            rel='stylesheet'
+                            type='text/css'>
+                            <link
+                                href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+                                rel='stylesheet'
+                                type='text/css'>
+                                <link href="/css/seatstyle.css" rel="stylesheet" type="text/css" media="all"/>
+                                <script src="/js/jquery-1.11.0.min.js"></script>
+                                <script src="/js/jquery.seat-charts.js"></script>
 
-<head>
-    <title>좌석 예매</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- for-mobile-apps -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords"
-        content="Movie Ticket Booking Widget Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <!-- //for-mobile-apps -->
-    <link href='//fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
-    <link
-        href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-        rel='stylesheet' type='text/css'>
-    <link href="/css/seatstyle.css" rel="stylesheet" type="text/css" media="all" />
-    <script src="/js/jquery-1.11.0.min.js"></script>
-    <script src="/js/jquery.seat-charts.js"></script>
-    
-</head>
+                            </head>
 
-<body>
-    <div class="content">
-        <h1>DEJH</h1>
-        <div class="main">
-        
-<div class="post_show_title">
-    <h2>
-      영화 선택
-    </h2>
-    <div class="row">
-        <div class=col-md-4 style="text-align: center;">겨울왕국</div>
-        <div class=col-md-8></div>
-        <div class="col-md-4">
-            <img src="/images/frozen.jpg" style="width: 200px;">
-        </div>
-        <div class="col-md-8">
-            <table class="table">
-                <tbody>
-                    <tr >
-                        <td style="min-width: 120px;">2관</td>
-                        <td><a href="/book/mvgoer">12:20</a></td><td><a href="#">2:20</a></td><td><a href="#">4:20</a></td><td><a href="#">6:20</a></td>
-                    </tr>
-                    <tr >
-                        <td style="min-width: 120px;">4관</td>
-                        <td><a href="#">12:20</a></td><td><a href="#">4:20</a></td><td><a href="#">6:20</a></td>
-                    </tr>
-                    <tr >
-                        <td style="min-width: 120px;">3D관</td>
-                        <td><a href="#">12:20</a></td><td><a href="#">2:20</a></td><td><a href="#">4:20</a></td><td><a href="#">6:20</a></td>
-                    </tr>
-                </tbody>
+                            <body>
+                                <div class="content">
+                                    <h1>DEJH</h1>
+                                    <div class="main">
 
-            </table>
-        </div>
-    </div>
-  </div>
-  
-  <div class="form-group" style="text-align: right;">
-    <button id="next_bt" type="submit" class="btn btn-default" style="height: 50px; width: 100px; border:1px solid;"> 돌아가기</button>
-  
-     </div>
-</div>    
-        </div>
+                                        <div class="post_show_title">
+                                            <h2>
+                                                영화 선택
+                                            </h2>
+                                            <div class="row">
+                                                <div class="col-md-4" style="text-align: center;">겨울왕국</div>
+                                                <div class="col-md-8"></div>
+                                                <div class="col-md-4">
+                                                    <img src="/images/frozen.jpg" style="width: 200px;"></div>
+                                                    <div class="col-md-8">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr >
+                                                                    <td style="min-width: 120px;">2관</td>
+                                                                    <td>
+                                                                        <a href="/book/mvgoer">12:20</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="#">2:20</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="#">4:20</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="#">6:20</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr >
+                                                                    <td style="min-width: 120px;">4관</td>
+                                                                    <td>
+                                                                        <a href="#">12:20</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="#">4:20</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="#">6:20</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr >
+                                                                    <td style="min-width: 120px;">3D관</td>
+                                                                    <td>
+                                                                        <a href="#">12:20</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="#">2:20</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="#">4:20</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="#">6:20</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
 
-    </div>
-    <script src="/js/jquery.nicescroll.js"></script>
-    <script src="/js/scripts.js"></script>
-</body>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-</html>
+                                            <div class="form-group" style="text-align: right;">
+                                                <button
+                                                    id="next_bt"
+                                                    type="submit"
+                                                    class="btn btn-default"
+                                                    style="height: 50px; width: 100px; border:1px solid;">
+                                                    돌아가기</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <script src="/js/jquery.nicescroll.js"></script>
+                                <script src="/js/scripts.js"></script>
+                            </body>
+
+                        </html>
