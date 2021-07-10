@@ -1,96 +1,217 @@
 <%# 상영방식 수정 %>
 
+    <!DOCTYPE html>
+    <html>
 
+        <head>
+            <style>
+                .my-custom-scrollbar {
+                    position: relative;
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    width: 700px;
+                    height: 300px;
+                    overflow: auto;
+                }
+                .table-wrapper-scroll-y {
+                    display: block;
+                }
+            </style>
+            <link
+                rel="stylesheet"
+                href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                crossorigin="anonymous">
 
+                <title>좌석 예매</title>
+                <!-- for-mobile-apps -->
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, maximum-scale=1">
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                    <meta
+                        name="keywords"
+                        content="Movie Ticket Booking Widget Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+                    <!-- //for-mobile-apps -->
+                    <link
+                        href='//fonts.googleapis.com/css?family=Kotta+One'
+                        rel='stylesheet'
+                        type='text/css'>
+                        <link
+                            href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+                            rel='stylesheet'
+                            type='text/css'>
+                            <link href="/css/seatstyle.css" rel="stylesheet" type="text/css" media="all"/>
+                            <script src="/js/jquery-1.11.0.min.js"></script>
+                            <script src="/js/jquery.seat-charts.js"></script>
+                        </head>
 
-<!DOCTYPE html>
-<html>
+                        <body>
+                            <div class="content">
+                                <h1>DEJH</h1>
+                                <div class="main">
+                                    <h2>관객 방식 수정</h2>
+                                    <div class="row">
+                                        <div
+                                            class="table-wrapper-scroll-y my-custom-scrollbar"
+                                            style="margin-bottom: 20px;">
 
-<head>
-    <style>
-        .my-custom-scrollbar {
-position: relative;
-margin-left:50px;
-margin-right:50px;
-width:700px;
-height: 300px;
-overflow: auto;
-}
-.table-wrapper-scroll-y {
-display: block;
-}
-    </style>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    
-    <title>좌석 예매</title>
-    <!-- for-mobile-apps -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords"
-        content="Movie Ticket Booking Widget Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <!-- //for-mobile-apps -->
-    <link href='//fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
-    <link
-        href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-        rel='stylesheet' type='text/css'>
-    <link href="/css/seatstyle.css" rel="stylesheet" type="text/css" media="all" />
-    <script src="/js/jquery-1.11.0.min.js"></script>
-    <script src="/js/jquery.seat-charts.js"></script>
-</head>
+                                            <table class="table table-bordered table-striped mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">관객방식</th>
+                                                        <th scope="col">가격</th>
+                                                        <th scope="col">Edit</th>
+                                                        <th scope="col">Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>
+                                                            <textarea
+                                                                class="form-control"
+                                                                id="message"
+                                                                name="message"
+                                                                rows="5"
+                                                                style="width:80px; height: 30px;">일반</textarea>
+                                                            <td>
+                                                                <textarea
+                                                                    class="form-control"
+                                                                    id="message"
+                                                                    name="message"
+                                                                    rows="5"
+                                                                    style="width:80px; height: 30px;">10000원</textarea>
+                                                                <td>
+                                                                    <button
+                                                                        id="next_bt"
+                                                                        type="submit"
+                                                                        class="btn btn-primary"
+                                                                        style="height: 5px; width: 5px;"></button>
+                                                                </td>
+                                                                <td>
+                                                                    <button
+                                                                        id="next_bt"
+                                                                        type="submit"
+                                                                        class="btn btn-primary"
+                                                                        style="height: 5px; width: 5px;"></button>
+                                                                </td>
+                                                            </tr>
+                                                            <th scope="row">2</th>
+                                                            <td>
+                                                                <textarea
+                                                                    class="form-control"
+                                                                    id="message"
+                                                                    name="message"
+                                                                    rows="5"
+                                                                    style="width:80px; height: 30px;">청소년</textarea>
+                                                                <td>
+                                                                    <textarea
+                                                                        class="form-control"
+                                                                        id="message"
+                                                                        name="message"
+                                                                        rows="5"
+                                                                        style="width:80px; height: 30px;">7000원</textarea>
+                                                                    <td>
+                                                                        <button
+                                                                            id="next_bt"
+                                                                            type="submit"
+                                                                            class="btn btn-primary"
+                                                                            style="height: 5px; width: 5px;"></button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button
+                                                                            id="next_bt"
+                                                                            type="submit"
+                                                                            class="btn btn-primary"
+                                                                            style="height: 5px; width: 5px;"></button>
+                                                                    </td>
+                                                                </tr>
+                                                                <th scope="row">3</th>
+                                                                <td>
+                                                                    <textarea
+                                                                        class="form-control"
+                                                                        id="message"
+                                                                        name="message"
+                                                                        rows="5"
+                                                                        style="width:80px; height: 30px;">경로</textarea>
+                                                                    <td>
+                                                                        <textarea
+                                                                            class="form-control"
+                                                                            id="message"
+                                                                            name="message"
+                                                                            rows="5"
+                                                                            style="width:80px; height: 30px;">5000원</textarea>
+                                                                        <td>
+                                                                            <button
+                                                                                id="next_bt"
+                                                                                type="submit"
+                                                                                class="btn btn-primary"
+                                                                                style="height: 5px; width: 5px;"></button>
+                                                                        </td>
+                                                                        <td>
+                                                                            <button
+                                                                                id="next_bt"
+                                                                                type="submit"
+                                                                                class="btn btn-primary"
+                                                                                style="height: 5px; width: 5px;"></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <th scope="row">4</th>
+                                                                    <td>
+                                                                        <textarea
+                                                                            class="form-control"
+                                                                            id="message"
+                                                                            name="message"
+                                                                            rows="5"
+                                                                            style="width:80px; height: 30px;">우대</textarea>
+                                                                        <td>
+                                                                            <textarea
+                                                                                class="form-control"
+                                                                                id="message"
+                                                                                name="message"
+                                                                                rows="5"
+                                                                                style="width:80px; height: 30px;">3000원</textarea>
+                                                                            <td>
+                                                                                <button
+                                                                                    id="next_bt"
+                                                                                    type="submit"
+                                                                                    class="btn btn-primary"
+                                                                                    style="height: 5px; width: 5px;"></button>
+                                                                            </td>
+                                                                            <td>
+                                                                                <button
+                                                                                    id="next_bt"
+                                                                                    type="submit"
+                                                                                    class="btn btn-primary"
+                                                                                    style="height: 5px; width: 5px;"></button>
+                                                                            </td>
+                                                                        </tr>
 
-<body>
-    <div class="content">
-        <h1>DEJH</h1>
-        <div class="main">
-            <h2>관객 방식 수정</h2>
-            <div class=row>
-                <div class="table-wrapper-scroll-y my-custom-scrollbar" style="margin-bottom: 20px;">
+                                                                    </tbody>
+                                                                </table>
 
-                    <table class="table table-bordered table-striped mb-0" >
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">관객방식</th>
-                          <th scope="col">가격</th>
-                          <th scope="col">Edit</th>
-                          <th scope="col">Delete</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th><td><textarea class="form-control" id="message" name="message"  rows="5" style="width:80px; height: 30px;">일반</textarea>
-                          <td><textarea class="form-control" id="message" name="message"  rows="5" style="width:80px; height: 30px;">10000원</textarea>
-                            <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                          </tr>
-                          <th scope="row">2</th><td><textarea class="form-control" id="message" name="message"  rows="5" style="width:80px; height: 30px;">청소년</textarea>
-                          <td><textarea class="form-control" id="message" name="message"  rows="5" style="width:80px; height: 30px;">7000원</textarea>
-                            <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr><th scope="row">3</th><td><textarea class="form-control" id="message" name="message"  rows="5" style="width:80px; height: 30px;">경로</textarea>
-                          <td><textarea class="form-control" id="message" name="message"  rows="5" style="width:80px; height: 30px;">5000원</textarea>
-                            <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                        </tr><th scope="row">4</th><td><textarea class="form-control" id="message" name="message"  rows="5" style="width:80px; height: 30px;">우대</textarea>
-                          <td><textarea class="form-control" id="message" name="message"  rows="5" style="width:80px; height: 30px;">3000원</textarea>
-                            <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                          <td><button id="next_bt" type="submit" class="btn btn-primary" style="height: 5px; width: 5px;"></button></td>
-                          </tr>
-                                      
-                      </tbody>
-                    </table>
-                  
-                  </div>    
-            </div>
-            <div class="form-group" style="text-align: right;">
-                <button id="next_bt" type="submit" onclick="location.href='./manage'" class="btn btn-primary" style="height: 50px; width: 100px;">뒤로가기</button>
-                <button id="next_bt" type="submit" class="btn btn-primary" style="height: 50px; width: 100px;">추가하기</button>
-            </div>
-        </div>
-    </div>
-    <script src="/js/jquery.nicescroll.js"></script>
-    <script src="/js/scripts.js"></script>
-</body>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" style="text-align: right;">
+                                                            <button
+                                                                id="next_bt"
+                                                                type="submit"
+                                                                onclick="location.href='./manage'"
+                                                                class="btn btn-primary"
+                                                                style="height: 50px; width: 100px;">뒤로가기</button>
+                                                            <button
+                                                                id="next_bt"
+                                                                type="submit"
+                                                                class="btn btn-primary"
+                                                                style="height: 50px; width: 100px;">추가하기</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <script src="/js/jquery.nicescroll.js"></script>
+                                                <script src="/js/scripts.js"></script>
+                                            </body>
 
-</html>
+                                        </html>
